@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance and Prototype</title>
+</head>
+<body>
+    <pre>
+        <b>
+            Q1. Create 2 objects - parent and child. Attach methods to parent and use those methods in child object using parents prototype
+        </b>
+
+
+        Solution:
+
+        function Parent(name) {
+            this.name=name;
+        }
+
+        Parent.prototype.greet = function() {
+            console.log(`Hello, Iam ${this.name}.`)
+        }
+
+        function Child(name,age){
+            Parent.call(this, name);
+            this.age = age;
+        }
+
+        Child.prototype = Object.create(Parent.prototype);
+
+        Child.prototype.introduce = function() {
+            console.log(`Hello, Iam ${this.name}, Iam ${this.age} years old.`);
+        };
+
+        const parent = new Parent('Bhanu');
+        const child = new Child('Mithra', 22);
+
+        parent.greet(); //Hello, Iam Bhanu.
+        child.greet(); //Hello, Iam Mithra.
+        child.introduce(); //Hello, Iam Mithra, Iam 22 years old.
+
+    </pre>
+
+
+    <pre>
+        <b>
+            Q2. Write code to explain prototype chaining
+        </b>
+
+
+        Solution:
+        function Parent(name) {
+            this.name=name;
+        }
+
+        Parent.prototype.greet = function() {
+            console.log(`Hello, Iam ${this.name}.`)
+        }
+
+        function Child(name,age){
+            Parent.call(this, name);
+            this.age = age;
+        }
+
+        Child.prototype = Object.create(Parent.prototype);
+
+        const child = new Child('Mithra', 22);
+        child.greet(); //Hello, Iam Mithra.
+
+        console.log(child.name); // output : Mithra
+        console.log(child.age); // output : 5
+        
+
+        Explanation:
+        In the example above, we have a Parent constructor function with a method greet() attached to its prototype.
+
+        Then, we have a Child constructor function that uses Object.create(Parent.prototype) to set up the prototype chain, 
+        making it inherit from Parent.prototype.
+        
+        As a result, instances of Child will have access to the greet() method defined in the Parent.prototype, 
+        and any properties or methods defined on the Parent constructor.
+
+        When we create an instance of Child using const child = new Child('Alice', 5);, the child object inherits the 
+        properties and methods from both the Child.prototype and the Parent.prototype, forming a chain of prototypes. 
+        
+        Therefore, child.greet() successfully calls the method defined in the parent's prototype.
+        
+        This is the essence of prototype chaining, allowing objects to share properties and methods across a 
+        structure of constructors and prototypes.
+        
+        
+        
+        
+        
+    </pre>
+
+
+    <pre>
+        <b>
+            Q3. Add a method to calculate sum of all elements in Array in array's protype, use that method to calculate sum for multiple arrays
+        </b>
+
+
+        Solution:
+
+        Array.prototype.sum = function(){
+            let sum = 0;
+            this.forEach((item)=>{
+                sum += item;
+            })
+            return sum;
+        }
+
+        const array1 = [1,2,3,4,5,];
+        const array2 = [10,20,30,40];
+        const array3 = [100,200,300,400];
+
+        const sum1 = array1.sum();
+        const sum2 = array2.sum();
+        const sum3 = array3.sum();
+
+        console.log("Sum of array1:", sum1);
+        console.log("Sum of array2:", sum2); 
+        console.log("Sum of array3:", sum3);
+    </pre>
+
+
+    <pre>
+        <b>
+            Q4. Write a JavaScript function to retrieve all the names of object's own and inherited properties.
+        </b>
+
+
+        Solution:
+        
+    </pre>
+</body>
+</html>
