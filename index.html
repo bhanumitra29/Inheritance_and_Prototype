@@ -151,29 +151,33 @@
         employee.hasOwnProperty('name');          // false
         employee.hasOwnProperty('department');    // true
 
+
+
+        const person = {
+            name: 'John',
+            age: 30,
+          };
+          
+          const employee = Object.create(person);
+          employee.jobTitle = 'Software Developer';
+          
+          console.log(getAllProperties(employee));
+
 //////////////////////////////////////////////////////////////////////
 
 
-        function Parent(name) {
-            this.name=name;
-        }
-
-        Parent.prototype.greet = function() {
-            console.log(`Hello, Iam ${this.name}.`)
-        }
-
-        function Child(name,age){
-            Parent.call(this, name);
-            this.age = age;
-        }
-
-        Child.prototype = Object.create(Parent.prototype);
-
-        const child = new Child('Mithra', 22);
-        child.greet(); //Hello, Iam Mithra.
-
-        console.log(child.name); // output : Mithra
-        console.log(child.age); // output : 5
+function getAllProperties(obj) {
+    const properties = new Set(Object.getOwnPropertyNames(obj));
+  
+    const prototype = Object.getPrototypeOf(obj);
+    if (prototype !== null) {
+      const inheritedProperties = getAllProperties(prototype);
+      inheritedProperties.forEach((prop) => properties.add(prop));
+    }
+  
+    return Array.from(properties);
+  }
+  
     </pre>
 </body>
 </html>
