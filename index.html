@@ -133,7 +133,47 @@
 
 
         Solution:
+        const user = {
+            name: 'John Doe',
+            age: 25
+        };
         
+        const employee = Object.create(user, {
+            department: {
+                value: 'HR',
+                company: "cts"
+            }
+        });
+        
+        const fetch1 = Object.getOwnPropertyNames(user);
+        const fetch2 = Object.getOwnPropertyNames(employee);
+
+        employee.hasOwnProperty('name');          // false
+        employee.hasOwnProperty('department');    // true
+
+//////////////////////////////////////////////////////////////////////
+
+
+        function Parent(name) {
+            this.name=name;
+        }
+
+        Parent.prototype.greet = function() {
+            console.log(`Hello, Iam ${this.name}.`)
+        }
+
+        function Child(name,age){
+            Parent.call(this, name);
+            this.age = age;
+        }
+
+        Child.prototype = Object.create(Parent.prototype);
+
+        const child = new Child('Mithra', 22);
+        child.greet(); //Hello, Iam Mithra.
+
+        console.log(child.name); // output : Mithra
+        console.log(child.age); // output : 5
     </pre>
 </body>
 </html>
